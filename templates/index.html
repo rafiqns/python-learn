@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Beranda - Python Learn{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded-3 mb-4">
+    <h1 class="display-4">Belajar Python dengan Mudah</h1>
+    <p class="lead">Platform pembelajaran Python interaktif untuk pemula hingga tingkat lanjut.</p>
+    {% if not current_user.is_authenticated %}
+    <hr class="my-4">
+    <p>Daftar sekarang untuk mulai belajar Python!</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('auth.register') }}">Daftar Gratis</a>
+    <a class="btn btn-outline-primary btn-lg ms-2" href="{{ url_for('auth.login') }}">Login</a>
+    {% endif %}
+</div>
+
+<h2 class="mb-4">Materi Pembelajaran</h2>
+
+{% if chapters %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for chapter in chapters %}
+    <div class="col">
+        <div class="card h-100 {% if chapter.is_pro %}border-warning{% endif %}">
+            {% if chapter.is_pro %}
+            <div class="card-header bg-warning text-dark">
+                <span class="badge bg-dark text-white">PRO</span> Materi Premium
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ chapter.title }}</h5>
+                <p class="card-text">{{ chapter.description }}</p>
+                <a href="{{ url_for('main.chapter_detail', chapter_id=chapter.id) }}" class="btn btn-primary">Pelajari</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    Belum ada materi pembelajaran yang tersedia. Silakan cek kembali nanti.
+</div>
+{% endif %}
+
+<div class="mt-5 p-4 bg-light rounded-3">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Upgrade ke Python Learn Pro</h3>
+            <p>Dapatkan akses ke semua materi premium dan fitur eksklusif.</p>
+            <ul>
+                <li>Akses ke semua materi pembelajaran</li>
+                <li>Latihan dan proyek tambahan</li>
+                <li>Dukungan prioritas</li>
+            </ul>
+            {% if current_user.is_authenticated and not current_user.is_pro %}
+            <a href="{{ url_for('payment.upgrade_to_pro') }}" class="btn btn-warning">Upgrade Sekarang</a>
+            {% elif not current_user.is_authenticated %}
+            <a href="{{ url_for('auth.register') }}" class="btn btn-warning">Daftar & Upgrade</a>
+            {% endif %}
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="fas fa-crown fa-5x text-warning mb-3"></i>
+            <h4 class="text-warning">Rp 99.000</h4>
+            <p class="text-muted">Akses seumur hidup</p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Upgrade ke Pro - Python Learn{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-warning">
+                <h3 class="mb-0">Upgrade ke Python Learn Pro</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h4>Apa yang Anda dapatkan:</h4>
+                        <ul class="list-group mb-4">
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Akses ke semua materi premium
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Proyek dan latihan tambahan
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Dukungan prioritas
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle text-success me-2"></i> Akses seumur hidup
+                            </li>
+                        </ul>
+                        
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+                            <div class="d-grid">
+                                {{ form.submit(class="btn btn-warning btn-lg") }}
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-crown fa-4x text-warning mb-3"></i>
+                                <h2 class="card-title">Rp 99.000</h2>
+                                <p class="card-text text-muted">Pembayaran satu kali</p>
+                                <p class="card-text text-muted">Akses seumur hidup</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5>Metode Pembayaran</h5>
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                                    <img src="https://midtrans.com/assets/images/channels/bca.png" alt="BCA" height="30">
+                                    <img src="https://midtrans.com/assets/images/channels/mandiri.png" alt="Mandiri" height="30">
+                                    <img src="https://midtrans.com/assets/images/channels/bni.png" alt="BNI" height="30">
+                                    <img src="https://midtrans.com/assets/images/channels/gopay.png" alt="GoPay" height="30">
+                                    <img src="https://midtrans.com/assets/images/channels/shopeepay.png" alt="ShopeePay" height="30">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

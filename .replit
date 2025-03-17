@@ -1,0 +1,15 @@
+language = "python3"
+run = "python app.py"
+entrypoint = "app.py"
+
+[env]
+PYTHONPATH = "${PYTHONPATH}:${REPL_HOME}"
+FLASK_APP = "app.py"
+FLASK_ENV = "development"
+
+[nix]
+channel = "stable-22_11"
+
+[deployment]
+run = ["sh", "-c", "python app.py"]
+deploymentTarget = "cloudrun" 

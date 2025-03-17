@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Python Learn{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-warning">
+                <h3 class="mb-0">Checkout</h3>
+            </div>
+            <div class="card-body text-center">
+                <i class="fas fa-crown fa-4x text-warning mb-3"></i>
+                <h2>Python Learn Pro</h2>
+                <p class="lead">Rp 99.000</p>
+                <hr>
+                <p>Silakan pilih metode pembayaran yang Anda inginkan.</p>
+                <div id="snap-container" class="mt-4"></div>
+                <div class="alert alert-info mt-4">
+                    <i class="fas fa-info-circle me-2"></i> Anda akan diarahkan ke halaman pembayaran yang aman.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ client_key }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Trigger Snap popup
+        snap.pay('{{ transaction_token }}', {
+            onSuccess: function(result) {
+                window.location.href = "{{ url_for('payment.payment_success') }}";
+            },
+            onPending: function(result) {
+                window.location.href = "{{ url_for('payment.payment_success') }}";
+            },
+            onError: function(result) {
+                window.location.href = "{{ url_for('payment.payment_failed') }}";
+            },
+            onClose: function() {
+                window.location.href = "{{ url_for('payment.payment_failed') }}";
+            }
+        });
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}403 - Akses Ditolak{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <i class="fas fa-ban fa-5x text-danger mb-4"></i>
+    <h1 class="display-4">403</h1>
+    <h2 class="mb-4">Akses Ditolak</h2>
+    <p class="lead">Maaf, Anda tidak memiliki izin untuk mengakses halaman ini.</p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-3">
+        <i class="fas fa-home me-2"></i>Kembali ke Beranda
+    </a>
+</div>
+{% endblock %} 

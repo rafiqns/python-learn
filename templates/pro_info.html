@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Fitur Pro - Python Learn{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <i class="fas fa-crown fa-5x text-warning mb-3"></i>
+    <h1 class="display-4">Python Learn Pro</h1>
+    <p class="lead">Tingkatkan pengalaman belajar Python Anda dengan fitur premium</p>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-book fa-3x text-primary mb-3"></i>
+                <h3>Akses Penuh</h3>
+                <p>Akses ke semua materi pembelajaran Python dari dasar hingga tingkat lanjut.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-laptop-code fa-3x text-primary mb-3"></i>
+                <h3>Proyek Praktis</h3>
+                <p>Latihan dan proyek tambahan untuk memperkuat pemahaman Anda.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                <h3>Dukungan Prioritas</h3>
+                <p>Dapatkan bantuan lebih cepat untuk pertanyaan dan masalah Anda.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-5">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Perbandingan Fitur</h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Fitur</th>
+                        <th class="text-center">Gratis</th>
+                        <th class="text-center bg-warning">Pro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Materi Dasar Python</td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                        <td class="text-center bg-warning-subtle"><i class="fas fa-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Materi Tingkat Menengah</td>
+                        <td class="text-center"><i class="fas fa-check text-success"></i> (Terbatas)</td>
+                        <td class="text-center bg-warning-subtle"><i class="fas fa-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Materi Tingkat Lanjut</td>
+                        <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                        <td class="text-center bg-warning-subtle"><i class="fas fa-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Proyek Praktis</td>
+                        <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                        <td class="text-center bg-warning-subtle"><i class="fas fa-check text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Dukungan</td>
+                        <td class="text-center">Standar</td>
+                        <td class="text-center bg-warning-subtle">Prioritas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card text-center">
+    <div class="card-header bg-warning">
+        <h3 class="mb-0">Upgrade Sekarang</h3>
+    </div>
+    <div class="card-body">
+        <h2 class="card-title">Rp 99.000</h2>
+        <p class="card-text">Akses seumur hidup ke semua fitur premium</p>
+        {% if current_user.is_authenticated %}
+            {% if current_user.is_pro %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i> Anda sudah menjadi pengguna Pro!
+            </div>
+            {% else %}
+            <a href="{{ url_for('payment.upgrade_to_pro') }}" class="btn btn-warning btn-lg">Upgrade ke Pro</a>
+            {% endif %}
+        {% else %}
+        <a href="{{ url_for('auth.register') }}" class="btn btn-warning btn-lg">Daftar & Upgrade</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

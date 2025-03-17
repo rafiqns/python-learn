@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}{{ subchapter.title }} - Python Learn{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('main.index') }}">Beranda</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('main.chapter_detail', chapter_id=chapter.id) }}">{{ chapter.title }}</a></li>
+        <li class="breadcrumb-item active">{{ subchapter.title }}</li>
+    </ol>
+</nav>
+
+<div class="card mb-4">
+    <div class="card-header {% if subchapter.is_pro or chapter.is_pro %}bg-warning{% else %}bg-primary text-white{% endif %}">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">{{ subchapter.title }}</h2>
+            {% if subchapter.is_pro or chapter.is_pro %}
+            <span class="badge bg-dark">PRO</span>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% if is_pro_content and not current_user.is_pro %}
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <i class="fas fa-lock me-2"></i> Konten ini hanya tersedia untuk pengguna Pro.
+            <a href="{{ url_for('payment.upgrade_to_pro') }}" class="btn btn-warning btn-sm ms-3">Upgrade ke Pro</a>
+        </div>
+        
+        <div class="text-center py-5">
+            <i class="fas fa-crown fa-4x text-warning mb-3"></i>
+            <h3>Konten Premium</h3>
+            <p class="lead">Upgrade ke Python Learn Pro untuk mengakses materi ini.</p>
+            <a href="{{ url_for('payment.upgrade_to_pro') }}" class="btn btn-warning btn-lg mt-3">Upgrade Sekarang</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="card-body">
+        <div class="content">
+            {{ subchapter.content|safe }}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="d-flex justify-content-between">
+    <a href="{{ url_for('main.chapter_detail', chapter_id=chapter.id) }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-1"></i> Kembali ke {{ chapter.title }}
+    </a>
+    
+    <!-- Navigasi ke sub-bab berikutnya bisa ditambahkan di sini -->
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<style>
+    .content {
+        line-height: 1.6;
+    }
+    .content pre {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        overflow-x: auto;
+    }
+    .content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1rem auto;
+    }
+    .content h3, .content h4 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .content ul, .content ol {
+        padding-left: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+    });
+</script>
+{% endblock %} 

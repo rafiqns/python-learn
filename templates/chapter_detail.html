@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}{{ chapter.title }} - Python Learn{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('main.index') }}">Beranda</a></li>
+        <li class="breadcrumb-item active">{{ chapter.title }}</li>
+    </ol>
+</nav>
+
+<div class="card mb-4">
+    <div class="card-header {% if chapter.is_pro %}bg-warning{% else %}bg-primary text-white{% endif %}">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">{{ chapter.title }}</h2>
+            {% if chapter.is_pro %}
+            <span class="badge bg-dark">PRO</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-body">
+        <p class="lead">{{ chapter.description }}</p>
+    </div>
+</div>
+
+{% if is_pro_content and not current_user.is_pro %}
+<div class="alert alert-warning">
+    <i class="fas fa-lock me-2"></i> Konten ini hanya tersedia untuk pengguna Pro.
+    <a href="{{ url_for('payment.upgrade_to_pro') }}" class="btn btn-warning btn-sm ms-3">Upgrade ke Pro</a>
+</div>
+
+<div class="card">
+    <div class="card-body text-center py-5">
+        <i class="fas fa-crown fa-4x text-warning mb-3"></i>
+        <h3>Konten Premium</h3>
+        <p class="lead">Upgrade ke Python Learn Pro untuk mengakses materi ini.</p>
+        <a href="{{ url_for('payment.upgrade_to_pro') }}" class="btn btn-warning btn-lg mt-3">Upgrade Sekarang</a>
+    </div>
+</div>
+{% else %}
+<h3 class="mb-3">Daftar Sub-Bab</h3>
+
+{% if subchapters %}
+<div class="list-group mb-4">
+    {% for subchapter in subchapters %}
+    <a href="{{ url_for('main.subchapter_detail', subchapter_id=subchapter.id) }}" 
+       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <div>
+            <h5 class="mb-1">{{ subchapter.title }}</h5>
+        </div>
+        {% if subchapter.is_pro %}
+        <span class="badge bg-warning text-dark">PRO</span>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    Belum ada sub-bab yang tersedia untuk materi ini.
+</div>
+{% endif %}
+{% endif %}
+
+<a href="{{ url_for('main.index') }}" class="btn btn-secondary">Kembali ke Daftar Materi</a>
+{% endblock %} 

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}500 - Kesalahan Server{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <i class="fas fa-exclamation-circle fa-5x text-danger mb-4"></i>
+    <h1 class="display-4">500</h1>
+    <h2 class="mb-4">Kesalahan Server</h2>
+    <p class="lead">Maaf, terjadi kesalahan pada server kami. Silakan coba lagi nanti.</p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-3">
+        <i class="fas fa-home me-2"></i>Kembali ke Beranda
+    </a>
+</div>
+{% endblock %} 
